@@ -14,9 +14,9 @@ params:
   homeInfoTitle: 'JMSH豆'
   homeInfoContent: '技术笔记与日常记录'
   defaultTheme: auto
-  showReadingTime: true
+  showReadingTime: false
   showBreadCrumbs: true
   showShareButtons: false
   showPostNavLinks: true
-  showWordCount: true
+  showWordCount: false
   comments: false

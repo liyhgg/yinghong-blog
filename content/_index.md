@@ -1,5 +1,5 @@
 ---
-title: "英宏博客"
+title: "JMSH豆"
 description: "技术笔记与日常记录"
 ---
 

@@ -1,6 +1,6 @@
 baseURL: 'https://yinghong.l.cd/'
 languageCode: 'zh-CN'
-title: '英宏博客'
+title: 'JMSH豆'
 description: '技术笔记与日常记录'
 theme: 'yinghong'
 
@@ -9,4 +9,4 @@ build:
   drafts: false
 
 params:
-  footer: '© 2026 英宏博客'
+  footer: '© 2026 JMSH豆'

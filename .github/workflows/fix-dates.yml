@@ -33,47 +33,66 @@ jobs:
           today=$(TZ=Asia/Shanghai date +%F)
           for f in content/post/*.md; do
             [ -f "$f" ] || continue
-            base=$(basename "$f" .md)
+            name=$(basename "$f")
+            # Never touch section index files
+            [ "$name" = "_index.md" ] && continue
+
+            base=${name%.md}
             # Strip leading date prefix like 2026-09-13-
             clean=$(echo "$base" | sed -E 's/^[0-9]{4}-[0-9]{2}-[0-9]{2}-//')
             title=$(echo "$clean" | tr '_-' ' ')
             slug="$clean"
 
-            has_date=$(grep -c '^date:' "$f" || true)
-            has_title=$(grep -c '^title:' "$f" || true)
-            has_slug=$(grep -c '^slug:' "$f" || true)
-            tmp="$f.tmp"
-            : > "$tmp"
-            saw_open=0
-            saw_close=0
-            while IFS= read -r line; do
-              if [ "$saw_open" -eq 0 ]; then
-                printf '%s\n' "$line" >> "$tmp"
-                if [ "$line" = "---" ]; then saw_open=1; fi
-                continue
-              fi
-              if [ "$saw_close" -eq 0 ]; then
-                if [ "$line" = "---" ]; then
-                  if [ "$has_date" -eq 0 ]; then
-                    printf 'date: %s\n' "$today" >> "$tmp"
-                  fi
-                  if [ "$has_title" -eq 0 ]; then
-                    printf 'title: "%s"\n' "$title" >> "$tmp"
-                  fi
-                  if [ "$has_slug" -eq 0 ]; then
-                    printf 'slug: "%s"\n' "$slug" >> "$tmp"
-                  fi
+            first=$(head -n 1 "$f")
+            if [ "$first" = "---" ]; then
+              # File already has front matter: fill missing fields only
+              has_date=$(grep -c '^date:' "$f" || true)
+              has_title=$(grep -c '^title:' "$f" || true)
+              has_slug=$(grep -c '^slug:' "$f" || true)
+              tmp="$f.tmp"
+              : > "$tmp"
+              saw_open=0
+              saw_close=0
+              while IFS= read -r line; do
+                if [ "$saw_open" -eq 0 ]; then
                   printf '%s\n' "$line" >> "$tmp"
-                  saw_close=1
-                else
-                  printf '%s\n' "$line" >> "$tmp"
+                  if [ "$line" = "---" ]; then saw_open=1; fi
+                  continue
                 fi
-                continue
-              fi
-              printf '%s\n' "$line" >> "$tmp"
-            done < "$f"
-            mv "$tmp" "$f"
-            echo "filled metadata for $f (title=$title, slug=$slug)"
+                if [ "$saw_close" -eq 0 ]; then
+                  if [ "$line" = "---" ]; then
+                    if [ "$has_date" -eq 0 ]; then
+                      printf 'date: %s\n' "$today" >> "$tmp"
+                    fi
+                    if [ "$has_title" -eq 0 ]; then
+                      printf 'title: "%s"\n' "$title" >> "$tmp"
+                    fi
+                    if [ "$has_slug" -eq 0 ]; then
+                      printf 'slug: "%s"\n' "$slug" >> "$tmp"
+                    fi
+                    printf '%s\n' "$line" >> "$tmp"
+                    saw_close=1
+                  else
+                    printf '%s\n' "$line" >> "$tmp"
+                  fi
+                  continue
+                fi
+                printf '%s\n' "$line" >> "$tmp"
+              done < "$f"
+              mv "$tmp" "$f"
+            else
+              # Plain text body: wrap it with generated front matter
+              {
+                printf -- '---\n'
+                printf 'title: "%s"\n' "$title"
+                printf 'date: %s\n' "$today"
+                printf 'slug: "%s"\n' "$slug"
+                printf -- '---\n\n'
+                cat "$f"
+              } > "$f.tmp"
+              mv "$f.tmp" "$f"
+            fi
+            echo "processed $f (title=$title)"
           done
           git diff --quiet content/post/*.md || echo "changed=true" >> "$GITHUB_ENV"
 

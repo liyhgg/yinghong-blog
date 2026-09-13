@@ -2,11 +2,21 @@ baseURL: 'https://yinghong.l.cd/'
 languageCode: 'zh-CN'
 title: 'JMSH豆'
 description: '技术笔记与日常记录'
-theme: 'yinghong'
+theme: 'papermod'
 
 build:
   publishDir: 'public'
   drafts: false
 
 params:
-  footer: '© 2026 JMSH豆'
+  env:
+    production: true
+  homeInfoTitle: 'JMSH豆'
+  homeInfoContent: '技术笔记与日常记录'
+  defaultTheme: auto
+  showReadingTime: true
+  showBreadCrumbs: true
+  showShareButtons: false
+  showPostNavLinks: true
+  showWordCount: true
+  comments: false

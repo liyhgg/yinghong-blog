@@ -8,12 +8,6 @@
     text-align: center;
 }
 
-.nav-title {
-    font-size: 2.4rem;
-    margin: 0 0 0.25rem 0;
-    color: var(--primary);
-}
-
 .nav-subtitle {
     color: var(--secondary);
     margin: 0 0 calc(var(--gap) * 1.5) 0;

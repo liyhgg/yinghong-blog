@@ -1,7 +1,6 @@
 {{- define "main" }}
 {{- $nav := sort site.Data.nav "weight" }}
 <div class="nav-home">
-    <h1 class="nav-title">{{ site.Title }}</h1>
     {{- with site.Params.description }}
     <p class="nav-subtitle">{{ . }}</p>
     {{- end }}

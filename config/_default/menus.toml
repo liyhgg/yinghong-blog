@@ -1,4 +1,6 @@
-[[main]]
-  name = "文章"
-  url = "/post/"
-  weight = 1
+# 顶栏菜单（右上角导航）
+# 想恢复右上角链接时取消注释：
+# [[main]]
+#   name = "文章"
+#   url = "/post/"
+#   weight = 1

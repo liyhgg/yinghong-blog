@@ -3,8 +3,18 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 320px;
+    min-height: 240px;
     margin: var(--gap) 0 calc(var(--gap) * 2) 0;
+    padding: calc(var(--gap) * 1.5);
+    background: var(--entry);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.first-entry:hover,
+.first-entry:focus-within {
+    transform: translateY(-2px);
+    border-color: var(--tertiary);
 }
 
 .first-entry .entry-header {

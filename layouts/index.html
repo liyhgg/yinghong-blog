@@ -1,0 +1,21 @@
+{{- define "main" }}
+{{- $nav := sort site.Data.nav "weight" }}
+<div class="nav-home">
+    <h1 class="nav-title">{{ site.Title }}</h1>
+    {{- with site.Params.description }}
+    <p class="nav-subtitle">{{ . }}</p>
+    {{- end }}
+    <ul class="nav-grid">
+        {{- range $nav }}
+        <li class="nav-item">
+            <a href="{{ .url }}"{{ if strings.HasPrefix .url "http" }} target="_blank" rel="noopener"{{ end }}>
+                <span class="nav-name">{{ .name }}</span>
+                {{- if .description }}
+                <span class="nav-desc">{{ .description }}</span>
+                {{- end }}
+            </a>
+        </li>
+        {{- end }}
+    </ul>
+</div>
+{{- end }}

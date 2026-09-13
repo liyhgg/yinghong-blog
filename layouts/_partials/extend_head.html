@@ -1,0 +1,4 @@
+{{- /* Head custom content area start */ -}}
+{{- $nav_home := resources.Get "css/nav-home.css" | resources.Minify -}}
+<link crossorigin="anonymous" href="{{ $nav_home.RelPermalink }}" rel="stylesheet">
+{{- /* Head custom content area end */ -}}

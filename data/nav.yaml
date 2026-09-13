@@ -1,0 +1,9 @@
+- name: "文章"
+  url: "/post/"
+  description: "全部文章"
+  weight: 1
+
+- name: "GitHub"
+  url: "https://github.com/liyhgg"
+  description: "我的 GitHub 主页"
+  weight: 2

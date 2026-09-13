@@ -1,0 +1,14 @@
+layouts/
+  baseof.html
+  index.html
+  _default/
+    list.html
+    single.html
+  partials/
+    head.html
+    header.html
+    footer.html
+    latest-posts.html
+static/
+  css/
+    main.css

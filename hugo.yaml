@@ -1,0 +1,12 @@
+baseURL: 'https://yinghong.l.cd/'
+locale: 'zh-CN'
+title: '英宏博客'
+description: '技术笔记与日常记录'
+theme: 'yinghong'
+
+build:
+  publishDir: 'public'
+  drafts: false
+
+params:
+  footer: '© 2026 英宏博客'

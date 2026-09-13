@@ -1,0 +1,11 @@
+<h1>最新文章</h1>
+<ul class="post-list">
+  {{ range where .Site.RegularPages "Section" "posts" | first 10 }}
+    <li class="post-item">
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ $datestr := .Params.datestr | default .Params.date }}
+      <time datetime="{{ $datestr }}">{{ $datestr }}</time>
+      {{ if .Description }}<p class="post-description">{{ .Description }}</p>{{ end }}
+    </li>
+  {{ end }}
+</ul>

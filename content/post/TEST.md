@@ -3,6 +3,6 @@ title: "TEST"
 description: "test"
 date: 2026-09-13
 datestr: "2026-09-13"
+slug: "TEST"
 ---
 
-你好

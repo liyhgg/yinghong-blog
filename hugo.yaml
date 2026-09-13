@@ -1,5 +1,5 @@
 baseURL: 'https://yinghong.l.cd/'
-locale: 'zh-CN'
+languageCode: 'zh-CN'
 title: '英宏博客'
 description: '技术笔记与日常记录'
 theme: 'yinghong'

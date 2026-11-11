@@ -40,7 +40,17 @@ collections:
     preview_path: "post/{{slug}}"
     summary: "{{title}} — {{date}}"
     sortable_fields: ["date", "title"]
+    # 只列出带 cms_kind: post 的文件，把 content/post/_index.md（栏目页配置）
+    # 从文章列表里过滤掉，避免误删。新建文章会自动写入这个隐藏字段。
+    filter:
+      field: "cms_kind"
+      value: "post"
     fields:
+      - label: "类型"
+        name: "cms_kind"
+        widget: "hidden"
+        default: "post"
+
       - label: "标题"
         name: "title"
         widget: "string"

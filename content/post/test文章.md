@@ -6,5 +6,6 @@ draft: false
 tags:
   - ts
 summary: "1"
+slug: "test文章"
 ---
 你好。

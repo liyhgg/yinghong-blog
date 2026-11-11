@@ -1,0 +1,93 @@
+# ============================================================
+# Decap CMS 配置（博客后台 /admin/）
+# 文档：https://decapcms.org/docs/configuration-options/
+# 改完这个文件提交一次，后台会跟着更新。
+# ============================================================
+
+backend:
+  name: github
+  repo: liyhgg/yinghong-blog
+  branch: main
+  # OAuth 走本站自己的 Pages Functions：/auth 与 /callback
+  base_url: https://yinghong.l.cd
+  auth_endpoint: auth
+
+# 后台界面语言
+locale: zh_Hans
+
+site_url: https://yinghong.l.cd
+display_url: https://yinghong.l.cd
+logo_url: https://yinghong.l.cd/favicon.ico
+
+# 图片存放：仓库里的 static/images → 站点路径 /images
+media_folder: "static/images"
+public_folder: "/images"
+
+# 文章默认放在 content/post/
+collections:
+  - name: "post"
+    label: "文章"
+    label_singular: "文章"
+    folder: "content/post"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "post/{{slug}}"
+    summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title"]
+    fields:
+      - label: "标题"
+        name: "title"
+        widget: "string"
+        hint: "中文标题没问题；想要漂亮的英文链接，就在下面填「自定义链接」。"
+
+      - label: "发布日期"
+        name: "date"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: "HH:mm"
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        hint: "排序按这个时间倒序。"
+
+      - label: "草稿"
+        name: "draft"
+        widget: "boolean"
+        default: false
+        required: false
+        hint: "勾上＝先存草稿，线上不显示。"
+
+      - label: "标签"
+        name: "tags"
+        widget: "list"
+        required: false
+        allow_add: true
+        default: []
+
+      - label: "摘要"
+        name: "summary"
+        widget: "text"
+        required: false
+        hint: "列表页显示的简介，留空则自动截取正文开头。"
+
+      - label: "自定义链接"
+        name: "url"
+        widget: "string"
+        required: false
+        hint: "可选。例如 /post/my-first-post/，留空则按文件名自动生成。"
+
+      - label: "封面图"
+        name: "cover"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - { label: "图片", name: "image", widget: "image", required: false }
+          - { label: "替代文字", name: "alt", widget: "string", required: false }
+          - { label: "图片说明", name: "caption", widget: "string", required: false }
+
+      - label: "正文"
+        name: "body"
+        widget: "markdown"
+        hint: "支持 Markdown；图片直接拖进来，会自动传到 static/images。"
